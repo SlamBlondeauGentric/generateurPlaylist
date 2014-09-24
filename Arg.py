@@ -38,22 +38,31 @@ parser.add_argument("--sg", help="sous genre possible")
 
 args = parser.parse_args()
 
-def Verif (quantity):
+'''Fonction qui permet de verifier si l'utilisateur a bien saisie un entier pour une quantite voulue'''
+def VerifInt (quantity):
     if quantity >0:
         try:
             return int(quantity)
         except ValueError:
             print("Erreur de conversion")
-            
-def Veriff (arg):
-    Attributs=['g','ar','sg','alb','t']
-    
-    if arg is not None:
-        if arg in Attributs:
-            argVerif=Verif(getattr(args, arg)[1])
+
+	
+'''Fonction qui permet la verification de tout les quantites de chaque arguments saisies'''  
+def Veriff ():
+	
+    Attributs=('g','ar','sg','alb','t')
+    pourcentage=0
+    for arg in Attributs:
+        Argu=getattr(args, arg)
+        if Argu is not None:
+            argVerif=VerifInt(Argu[1])
             setattr(args,arg,argVerif)
+            pourcentage+=argVerif
+    print(pourcentage)
 		
-Veriff('t')
+Veriff()
+
+
 
 
 
