@@ -1,6 +1,7 @@
 import argparse
 import logging
 from locale import str
+logging.basicConfig(filename='mon_fichier_log')
 
 '''Arguments positionnels'''
 from argparse import Namespace
@@ -41,25 +42,36 @@ args = parser.parse_args()
 
 '''Fonction qui permet de verifier si l'utilisateur a bien saisie un entier pour une quantite voulue'''
 def VerifInt (quantity):
-    if quantity >0:
+    
         try:
-            return int(quantity)
+            goodQte=int(quantity)
+            logging.info("Un entier a bien ete saisie.")
+            
+            if goodQte >0 and goodQte<100:
+                logging.info("L'entier saisie est bien positif et inferieur a 100.")    
+                return goodQte
+            else:
+                logging.error("Vous devez saisir un entier positif, inferieur a 100")
+                exit(2)
         except ValueError:
-            print("Erreur de conversion")
+            logging.error("Erreur de conversion, veuillez saisir un entier.")
+            exit(1)
 
 	
 '''Fonction qui permet la verification de tout les quantites de chaque arguments saisies'''  
 def Veriff ():
 	
     Attributs=('g','ar','sg','alb','t')
-    pourcentage=0
     for arg in Attributs:
         Argu=getattr(args, arg)
         if Argu is not None:
+            
             argVerif=VerifInt(Argu[1])
             setattr(args,arg,argVerif)
-            pourcentage+=argVerif
-    print(pourcentage)
+        else:
+            logging.error("Votre argument n'est pas valide.")
+            exit(3)
+
 		
 Veriff()
 
