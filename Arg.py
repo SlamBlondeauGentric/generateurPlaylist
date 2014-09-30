@@ -1,4 +1,5 @@
 import argparse
+import logging
 from locale import str
 
 '''Arguments positionnels'''
