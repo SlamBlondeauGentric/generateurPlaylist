@@ -65,7 +65,7 @@ def Veriff ():
     for arg in Attributs:
         Argu=getattr(args, arg)
         if Argu is not None:
-            
+            logging.info("L'argument saisie est correcte.")
             argVerif=VerifInt(Argu[1])
             setattr(args,arg,argVerif)
         else:
