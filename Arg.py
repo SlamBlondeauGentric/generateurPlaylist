@@ -1,10 +1,12 @@
 import argparse
 import logging
 from locale import str
-logging.basicConfig(filename='mon_fichier_log')
+from argparse import Namespace
+
+logging.basicConfig(filename='mon_fichier_log', level=logging.DEBUG)
 
 '''Arguments positionnels'''
-from argparse import Namespace
+
 parser = argparse.ArgumentParser()
 '''Duree_playlist est la duree de la playlist en minutes'''
 parser.add_argument("duree_playlist", help="duree de la playlist en minutes", type=int)
@@ -40,6 +42,7 @@ parser.add_argument("--sg", help="sous genre possible")
 
 args = parser.parse_args()
 
+
 '''Fonction qui permet de verifier si l'utilisateur a bien saisie un entier pour une quantite voulue'''
 def VerifInt (quantity):
     
@@ -51,10 +54,10 @@ def VerifInt (quantity):
                 logging.info("L'entier saisie est bien positif et inferieur a 100.")    
                 return goodQte
             else:
-                logging.error("Vous devez saisir un entier positif, inferieur a 100")
+                logging.error("L'entier doit etre positif et inferieur a 100")
                 exit(2)
         except ValueError:
-            logging.error("Erreur de conversion, veuillez saisir un entier.")
+            logging.error("Erreur de conversion, il faut saisir un entier.")
             exit(1)
 
 	
@@ -62,18 +65,18 @@ def VerifInt (quantity):
 def Veriff ():
 	
     Attributs=('g','ar','sg','alb','t')
+    
     for arg in Attributs:
         Argu=getattr(args, arg)
         if Argu is not None:
             logging.info("L'argument saisie est correcte.")
             argVerif=VerifInt(Argu[1])
             setattr(args,arg,argVerif)
-        else:
-            logging.error("Votre argument n'est pas valide.")
-            exit(3)
+           
 
-		
 Veriff()
+
+
 
 
 
