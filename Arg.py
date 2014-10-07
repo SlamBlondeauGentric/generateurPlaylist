@@ -6,7 +6,6 @@ from argparse import Namespace
 logging.basicConfig(filename='mon_fichier_log', level=logging.DEBUG)
 
 '''Arguments positionnels'''
-
 parser = argparse.ArgumentParser()
 '''Duree_playlist est la duree de la playlist en minutes'''
 parser.add_argument("duree_playlist", help="duree de la playlist en minutes", type=int)
@@ -17,9 +16,6 @@ parser.add_argument("type_playlist", help="Format de sortie de la playlist", cho
 '''Nom_playlist est le nom de la playlist'''
 parser.add_argument("nom_playlist", help="Nom du fichier de la playlist")
 
-'''print("Duree: "+str(args.duree_playlist)+" minutes")
-print("Format: "+args.type_playlist)
-print("Nom du fichier: "+args.nom_playlist)'''
 
 '''Arguments optionnels'''
 '''--g permettera de specifie un genre de musique '''
@@ -40,6 +36,9 @@ parser.add_argument("--marge", help="marge supplementaire a ajoute a la duree", 
 '''--sg permettera de specifie un sous genre'''
 parser.add_argument("--sg", help="sous genre possible")
 
+'''--r permettera de rentré une recherche'''
+parser.add_argument("--r", help="recherche d'un titre selon une expression")
+
 args = parser.parse_args()
 
 
@@ -50,7 +49,7 @@ def VerifInt (quantity):
             goodQte=int(quantity)
             logging.info("Un entier a bien ete saisie.")
             
-            if goodQte >0 and goodQte<100:
+            if goodQte >=0 and goodQte<=100:
                 logging.info("L'entier saisie est bien positif et inferieur a 100.")    
                 return goodQte
             else:
