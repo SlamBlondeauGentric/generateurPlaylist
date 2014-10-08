@@ -63,11 +63,41 @@ def Veriff ():
 Veriff()
 
 
+'''--------------------------------Se connecter à la base de données---------------------------'''
+''' super doc: http://perso.telecom-paristech.fr/~gramfort/liesse_python/5-BDD.html '''
+import sqlite3 # nous importons le paquet Python capable d'interagir avec sqlite
 
+def BDD_premier_resultat ():
+	db_loc = sqlite3.connect('nom_de_la_base_de_donnée.db')
+	db_ram = sqlite3.connect(':memory:')
 
+	cursor.execute('''SELECT * FROM x;''')
+	result_requette = cursor.fetchone() # recupere le premier resultat
+	print(result_requette)
 
+	''' a la fin ne pas oublier de ce déconnecter '''
+	db_loc.close()
+	db_ram.close()
 
+'''def BDD_filtrage_sur_les_champs_fetchall ():
+	# maintenant tous les animeaux :
+	cursor.execute(''''''SELECT * FROM animal;'''''')
+	eleves = cursor.fetchall()
+	for animal in animeaux:
+    		print(animal[0], animal[2], animal[1])'''''' 0=le_nom 1=la_race 2=l'age 3= ''''''
+    		# animal correspond à un enregistrement de la table animeaux
+    		# animal[indice] correspond au champs correspondant de l'animal en question
+'''
+def BDD_filtrage_sur_les_champs ():
+	db_loc = sqlite3.connect('nom_de_la_base_de_donnée.db')
+	db_ram = sqlite3.connect(':memory:')
+	
+	eleves = cursor.execute('''SELECT name FROM eleve;''')
+	# ici le passage par un argument évite le fetchall() mais les deux commandes sont équivalentes
+	for eleve in eleves:
+    		print(eleve)
 
-
-
-
+    	''' a la fin ne pas oublier de ce déconnecter '''
+	db_loc.close()
+	db_ram.close()
+	
